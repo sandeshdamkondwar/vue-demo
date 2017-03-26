@@ -38,9 +38,9 @@ export default {
   border: 1px solid #DDD;
   border-width: 1px 1px 2px 1px;
   max-width: 400px;
-  margin: 20px 10px;
+  margin: 20px auto;
   padding: 20px;
-
+  max-width: 380px;
 }
 
 .message {
