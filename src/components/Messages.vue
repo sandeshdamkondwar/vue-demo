@@ -61,9 +61,8 @@ export default {
 	color: white;
   border-radius: 21px 21px 21px 21px;
   position: relative;
+  max-width: 80%;
 }
-
-
 
 .message span:after {
   content: "";
