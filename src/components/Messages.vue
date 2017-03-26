@@ -1,6 +1,7 @@
 <template>
 <div id="messages">
 	<div class="messages">
+    <img id="loader" src="./../assets/loader.svg" v-show="loading">
 		<div v-for="message in messages">
 			<div class="message" v-bind:class="{ left: message.source === 'from', right: message.source === 'to'}" >
 				<span v-html="message.subject"></span>
@@ -16,34 +17,18 @@ export default {
   name: 'messages',
   data () {
     return {
-      messages: [
-        {
-          subject: 'Hey Sandesh, <br>How you are doing?',
-          time: new Date(),
-          source: 'from'
-        },
-        {
-          subject: 'Hey friend, I\'m doing great.',
-          time: new Date(),
-          source: 'to'
-        },
-        {
-          subject: 'Which framework is on mind today?',
-          time: new Date(),
-          source: 'from'
-        },
-        {
-          subject: 'Vue.js, killing it!!!',
-          time: new Date(),
-          source: 'to'
-        },
-        {
-          subject: 'Feels like, sitting on top of the world today <span>😂</span>',
-          time: new Date(),
-          source: 'to'
-        }
-      ]
+      loading: true,
+      messages: []
     }
+  },
+  created () {
+    var self = this
+    this.$http.get('https://sandeshdamkondwar.firebaseio.com/messages.json').then(function (response) {
+      self.loading = false
+      self.messages = response.data
+    }, function () {
+      console.log('There was an error')
+    })
   }
 }
 </script>
@@ -72,30 +57,29 @@ export default {
 
 .message span {
 	display: inline-block;
-
 	padding: 10px;
 	color: white;
-    border-radius: 21px 21px 21px 21px;
-    position: relative;
+  border-radius: 21px 21px 21px 21px;
+  position: relative;
 }
 
 
 
 .message span:after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 20px;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 20px;
 
-    bottom: 0;
-    right: 0;
-    border-radius: 0 30% 0 290%;
+  bottom: 0;
+  right: 0;
+  border-radius: 0 30% 0 290%;
 }
 
 .message.left span:after {
 	bottom: 0;
-    left: 0;
-    border-radius: 30% 0 290% 0 ;
+  left: 0;
+  border-radius: 30% 0 290% 0 ;
 }
 
 .message.right span:after {
