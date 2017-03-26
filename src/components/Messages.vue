@@ -27,7 +27,7 @@ export default {
       self.loading = false
       self.messages = response.data
     }, function () {
-      console.log('There was an error')
+      alert('There was an error while loading messages')
     })
   }
 }
